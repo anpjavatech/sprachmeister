@@ -9,7 +9,7 @@ export default function sendWelcomeEmail(email, name){
         to: email, // Change to your recipient
         from: 'anoop.ks007@gmail.com', // Change to your verified sender
         subject: 'Thanks for joining in !.',
-        text: `Welcomw to the app ${name}. Let me know how you get along with the app.`
+        text: `Welcome to the app ${name}. Let me know how you get along with the app.`
       })
 
 }
