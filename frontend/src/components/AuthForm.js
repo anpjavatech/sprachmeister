@@ -10,10 +10,42 @@ function AuthForm() {
   const isLogin = searchParams.get("mode") === "login";
   const isSubmitting  = navigation.state==="submitting";
 
+  let content = (
+    <>
+      <p>
+        <label htmlFor="email">Email</label>
+        <input id="email" type="email" name="email" required />
+      </p>
+      <p>
+        <label htmlFor="image">Password</label>
+        <input id="password" type="password" name="password" required />
+      </p>
+      
+      { isLogin ? null: <>
+        <p>
+            <label htmlFor="firstName">FirstName</label>
+            <input id="firstName" type="string" name="firstName" required />
+        </p>
+        <p>
+            <label htmlFor="lastName">LastName</label>
+            <input id="lastName" type="string" name="lastName" required />
+        </p>
+        <p>
+            <label htmlFor="age">Age</label>
+            <input id="age" type="number" name="age" required />
+        </p>
+        <p>
+            <label htmlFor="profession">Profession</label>
+            <input id="profession" type="string" name="profession" required />
+        </p>
+      </>}
+    </>
+  )
+
   return (
     <>
       <Form method="post" className={classes.form}>
-        <h1>{isLogin ? 'Log in' : 'Create a new user'}</h1>
+        <h1>{isLogin ? 'Sign in' : 'Sign up'}</h1>
 
         {data && data.errors && (
           <ul>
@@ -24,18 +56,10 @@ function AuthForm() {
         )}
 
         {data && data.message && <p>{data.message}</p>}
-
-        <p>
-          <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email" required />
-        </p>
-        <p>
-          <label htmlFor="image">Password</label>
-          <input id="password" type="password" name="password" required />
-        </p>
+        {content}
         <div className={classes.actions}>
           <NavLink to={`?mode=${isLogin? "signup" : "login"}`}>
-            {isLogin ? 'Create new user' : 'Login'}
+            {isLogin ? 'Sign up' : 'Sign in'}
           </NavLink>
           <button>{isSubmitting ? "Submitting...":"Save"}</button>
         </div>
