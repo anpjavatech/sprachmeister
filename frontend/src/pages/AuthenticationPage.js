@@ -1,5 +1,5 @@
-import { json, redirect } from 'react-router-dom';
-import AuthForm from '../components/AuthForm';
+import { json, redirect } from "react-router-dom";
+import AuthForm from "../components/AuthForm";
 
 function AuthenticationPage() {
   return <AuthForm />;
@@ -7,34 +7,40 @@ function AuthenticationPage() {
 
 export default AuthenticationPage;
 
-export async function action({request}){
-
+export async function action({ request }) {
   const searchParams = new URL(request.url).searchParams;
   const mode = searchParams.get("mode") || "login";
   const data = await request.formData();
-  const reqData = {
+  let reqData = {
     email: data.get("email"),
-    password: data.get("password")
+    password: data.get("password"),
   };
 
-  if(mode !== "login"  && mode !== "signup"){
-    throw json({message: "Unsupported mode."}, {status:422});
+  if (mode === "signup") {
+    reqData.firstName = data.get("firstName");
+    reqData.lastName = data.get("lastName");
+    reqData.age = data.get("age");
+    reqData.profession = data.get("profession");
   }
 
-  const response = await fetch("http://localhost:8000/"+mode, {
+  if (mode !== "login" && mode !== "signup") {
+    throw json({ message: "Unsupported mode." }, { status: 422 });
+  }
+
+  const response = await fetch("http://localhost:8000/" + mode, {
     method: "POST",
     headers: {
-      "Content-Type":"application/json"
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(reqData)
+    body: JSON.stringify(reqData),
   });
 
-  if(response.status === 422 || response.status === 401){
+  if (response.status === 422 || response.status === 401) {
     return response;
   }
 
-  if(!response.ok){
-    throw json({message:"Could not authenticate user !."}, {status:500});
+  if (!response.ok) {
+    throw json({ message: "Could not authenticate user !." }, { status: 500 });
   }
 
   const resData = await response.json();
@@ -45,5 +51,4 @@ export async function action({request}){
   localStorage.setItem("expiration", expiration.toISOString());
 
   return redirect("/");
-
 }

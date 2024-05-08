@@ -1,29 +1,45 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import RootPage from './pages/RootPage'
-import ErrorPage from './pages/ErrorPage'
-import AuthenticationPage, {action as authAction} from './pages/AuthenticationPage';
-import {action as logoutAction} from "./pages/Logout";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import RootPage from "./pages/RootPage";
+import ErrorPage from "./pages/ErrorPage";
+import HomePage from "./pages/HomePage";
+import ChallengePage from "./pages/ChallengePage";
+import AuthenticationPage, {
+  action as authAction,
+} from "./pages/AuthenticationPage";
+import { action as logoutAction } from "./pages/Logout";
+import { tokenLoader } from "./utils/auth";
 
 const router = createBrowserRouter([
-    {
-        path:'/',
-        id:'root',
-        element:<RootPage />,
-        errorElement:<ErrorPage />,
-        children:[{
-          path:'/auth',
-          element: <AuthenticationPage />,
-          action: authAction,
+  {
+    path: "/",
+    id: "root",
+    element: <RootPage />,
+    errorElement: <ErrorPage />,
+    loader: tokenLoader,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
       },
       {
-          path: 'logout',
-          action: logoutAction,
-      }]
-    }
-])
+        path: "challenges",
+        element: <ChallengePage />,
+      },
+      {
+        path: "auth",
+        element: <AuthenticationPage />,
+        action: authAction,
+      },
+      {
+        path: "logout",
+        action: logoutAction,
+      },
+    ],
+  },
+]);
 
-function App(){
-    return <RouterProvider router={router} />
+function App() {
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

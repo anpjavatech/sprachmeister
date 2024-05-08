@@ -1,13 +1,15 @@
-import { Outlet } from 'react-router-dom'
-import MainNavigation from '../components/MainNavigation'
+import { Outlet } from "react-router-dom";
+import MainNavigation from "../components/MainNavigation";
 
-function RootPage(){
-    return <>
-       <MainNavigation />
-       <main>
-            <Outlet />
-       </main>
+function RootPage() {
+  return (
+    <>
+      <MainNavigation />
+      <main>
+        <Outlet />
+      </main>
     </>
+  );
 }
 
-export default RootPage
+export default RootPage;
