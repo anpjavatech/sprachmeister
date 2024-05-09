@@ -1,14 +1,15 @@
 import { useCallback, useState } from "react";
 import { QUESTIONS } from "../assets/questions_dump";
 import quizLogo from "../assets/quiz-logo.png";
-import trophyLogo from "../assets/quiz-complete.png";
-import QuestionTimer from "../components/QuestionTimer";
+import Questions from "../components/Questions";
+import Summary from "../components/Summary";
 
 export default function ChallengePage() {
   const [userAnswers, setUserAnswers] = useState([]);
+
   const activeQuestionIndex = userAnswers.length;
+
   const isQuizCompleted = activeQuestionIndex === QUESTIONS.length;
-  let shuffledOptions = [];
 
   const handleUserAnswers = useCallback(function handleUserAnswers(userAnswer) {
     setUserAnswers((prevUserAnswers) => {
@@ -22,15 +23,7 @@ export default function ChallengePage() {
   );
 
   if (isQuizCompleted) {
-    return (
-      <div id="summary">
-        <img src={trophyLogo} alt="Trophy Icon" />
-        <h2>Quiz Completed</h2>
-      </div>
-    );
-  } else {
-    shuffledOptions = [...QUESTIONS[activeQuestionIndex].options];
-    shuffledOptions.sort(() => Math.random() - 0.5);
+    return <Summary userAnswers={userAnswers} />;
   }
 
   return (
@@ -40,25 +33,12 @@ export default function ChallengePage() {
         <h1>Vocabulary Quizz</h1>
       </header>
       <div id="quiz">
-        <div id="question">
-          <QuestionTimer
-            key={activeQuestionIndex}
-            onTimeout={handleSkipAnswer}
-            timeout={10000}
-          />
-          <h2>{QUESTIONS[activeQuestionIndex].question}</h2>
-          <ul id="answers">
-            {shuffledOptions.map((answer) => {
-              return (
-                <li key={answer} className="answer">
-                  <button onClick={() => handleUserAnswers(answer)}>
-                    {answer}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <Questions
+          key={activeQuestionIndex}
+          questionIndex={activeQuestionIndex}
+          onUserSelect={handleUserAnswers}
+          onSkipAnswer={handleSkipAnswer}
+        />
       </div>
     </>
   );
