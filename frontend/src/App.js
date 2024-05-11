@@ -7,7 +7,7 @@ import AuthenticationPage, {
   action as authAction,
 } from "./pages/AuthenticationPage";
 import { action as logoutAction } from "./pages/Logout";
-import { tokenLoader } from "./utils/auth";
+import { checkAuthToken, tokenLoader } from "./utils/auth";
 
 const router = createBrowserRouter([
   {
@@ -20,10 +20,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+        loader: checkAuthToken,
       },
       {
         path: "challenges",
         element: <ChallengePage />,
+        loader: checkAuthToken,
       },
       {
         path: "auth",
