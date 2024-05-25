@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { QUESTIONS } from "../assets/questions_dump";
-import quizLogo from "../assets/quiz-logo.png";
+import quizLogo from "../assets/quiz.png";
 import Questions from "../components/Questions";
 import Summary from "../components/Summary";
 

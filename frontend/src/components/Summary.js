@@ -1,18 +1,17 @@
-import trophyLogo from "../assets/quiz-complete.png";
+import trophyLogo from "../assets/trophy.png";
 import { QUESTIONS } from "../assets/questions_dump";
 
 export default function Summary({ userAnswers }) {
-  const skippedAnswers = userAnswers.filter((answer) => answer === null);
+  const skippedAnswers = userAnswers.filter(
+    (answer) => answer === "" || answer === null || answer === undefined
+  ).length;
+
   const correctAnswers = userAnswers.filter(
     (answer, index) => answer === QUESTIONS[index].answer[0]
-  );
+  ).length;
 
-  const skippedPer =
-    Math.round(skippedAnswers.length / userAnswers.length) * 100;
-
-  const correctPer =
-    Math.round(correctAnswers.length / userAnswers.length) * 100;
-
+  const skippedPer = Math.round((skippedAnswers / userAnswers.length) * 100);
+  const correctPer = Math.round((correctAnswers / userAnswers.length) * 100);
   const wrongPer = 100 - skippedPer - correctPer;
 
   return (
@@ -33,26 +32,42 @@ export default function Summary({ userAnswers }) {
           <span className="text">wrong</span>
         </p>
       </div>
-      <ol>
-        {userAnswers.map((answer, index) => {
-          let cssClass = "user-answer";
-          if (answer === null) {
-            cssClass += " skipped";
-          } else if (answer === QUESTIONS[index].answer[0]) {
-            cssClass += " correct";
-          } else {
-            cssClass += " wrong";
-          }
-
-          return (
-            <li key={index}>
-              <h3>{index + 1}</h3>
-              <p className="question">{QUESTIONS[index].question}</p>
-              <p className={cssClass}>{answer ?? "skipped"}</p>
-            </li>
-          );
-        })}
-      </ol>
+      <div className="grid-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Questions Asked</th>
+              <th>Required Answers</th>
+              <th>Provided Answers</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userAnswers.map((answer, index) => {
+              let status = "skipped";
+              let cssClass = "user-answer";
+              if (answer === null) {
+                status = "skipped";
+                cssClass += " skipped";
+              } else if (answer === QUESTIONS[index].answer[0]) {
+                status = "correct";
+                cssClass += " correct";
+              } else {
+                status = "wrong";
+                cssClass += " wrong";
+              }
+              return (
+                <tr key={index}>
+                  <td>{QUESTIONS[index].question}</td>
+                  <td>{QUESTIONS[index].answer[0]}</td>
+                  <td>{answer}</td>
+                  <td className={cssClass}>{status}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

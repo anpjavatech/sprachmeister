@@ -1,7 +1,7 @@
 export const QUESTIONS = [
   {
     id: 1,
-    question: "Sprechen",
+    question: "sprechen",
     options: ["speaker", "to discuss", "language", "to promise", "to speak"],
     answer: ["to speak"],
   },
