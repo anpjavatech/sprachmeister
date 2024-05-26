@@ -35,6 +35,19 @@ function MainNavigation() {
               </NavLink>
             </li>
           )}
+          {token && (
+            <li>
+              <NavLink
+                to="/questions"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+                end
+              >
+                Questions
+              </NavLink>
+            </li>
+          )}
           {!token && (
             <li>
               <NavLink

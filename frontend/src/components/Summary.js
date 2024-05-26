@@ -1,13 +1,12 @@
 import trophyLogo from "../assets/trophy.png";
-import { QUESTIONS } from "../assets/questions_dump";
 
-export default function Summary({ userAnswers }) {
+export default function Summary({ userAnswers, questions }) {
   const skippedAnswers = userAnswers.filter(
     (answer) => answer === "" || answer === null || answer === undefined
   ).length;
 
   const correctAnswers = userAnswers.filter(
-    (answer, index) => answer === QUESTIONS[index].answer[0]
+    (answer, index) => answer === questions[index].answer[0]
   ).length;
 
   const skippedPer = Math.round((skippedAnswers / userAnswers.length) * 100);
@@ -49,7 +48,7 @@ export default function Summary({ userAnswers }) {
               if (answer === null) {
                 status = "skipped";
                 cssClass += " skipped";
-              } else if (answer === QUESTIONS[index].answer[0]) {
+              } else if (answer === questions[index].answer[0]) {
                 status = "correct";
                 cssClass += " correct";
               } else {
@@ -58,8 +57,8 @@ export default function Summary({ userAnswers }) {
               }
               return (
                 <tr key={index}>
-                  <td>{QUESTIONS[index].question}</td>
-                  <td>{QUESTIONS[index].answer[0]}</td>
+                  <td>{questions[index].question}</td>
+                  <td>{questions[index].answer}</td>
                   <td>{answer}</td>
                   <td className={cssClass}>{status}</td>
                 </tr>
