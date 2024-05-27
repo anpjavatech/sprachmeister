@@ -1,11 +1,13 @@
 import PageContent from "../components/PageContent";
-import sprachmeisterPic from "../assets/sprachmeister.png";
+import SelectFormSubmission from "../components/Select";
 
 function HomePage() {
   return (
     <PageContent title="Welcome!">
-      <p>Browse all our amazing events!</p>
-      <img src={sprachmeisterPic} alt="Sprachmeister Home Page Pic" />
+      <p>Ready for your challenges !</p>
+      <div>
+        <SelectFormSubmission />
+      </div>
     </PageContent>
   );
 }

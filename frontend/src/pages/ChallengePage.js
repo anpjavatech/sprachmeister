@@ -4,6 +4,7 @@ import Questions from "../components/Questions";
 import Summary from "../components/Summary";
 import { useLoaderData, json, defer, Await } from "react-router-dom";
 import { getAuthToken } from "../utils/auth";
+import { Suspense } from "react";
 
 export default function ChallengePage() {
   const data = useLoaderData().data;
@@ -15,13 +16,11 @@ export default function ChallengePage() {
         <h1>Vocabulary Quizz</h1>
       </header>
       <div id="quiz">
-        <Await
-          resolve={data.randomQuestions}
-          errorElement={<div>Error loading questions</div>}
-          fallback={<div>Loading...</div>}
-        >
-          {(randomQuestions) => <Quiz randomQuestions={randomQuestions} />}
-        </Await>
+        <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+          <Await resolve={data.randomQuestions}>
+            {(randomQuestions) => <Quiz randomQuestions={randomQuestions} />}
+          </Await>
+        </Suspense>
       </div>
     </>
   );

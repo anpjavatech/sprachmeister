@@ -89,6 +89,16 @@ function QuestionForm({ method, event }) {
           defaultValue={event ? event.option4 : ""}
         />
       </p>
+      <p>
+        <label htmlFor="option5">Option 5</label>
+        <input
+          id="option5"
+          type="text"
+          name="option5"
+          required
+          defaultValue={event ? event.option5 : ""}
+        />
+      </p>
       <div className={classes.actions}>
         <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
           Cancel

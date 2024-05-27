@@ -35,6 +35,17 @@ header img {
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
 }
 
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50rem;
+  margin: 10rem auto;
+  height: '100vh'
+
+}
+
 #quiz {
   max-width: 50rem;
   margin: auto;

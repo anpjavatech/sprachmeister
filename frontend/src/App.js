@@ -2,6 +2,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootPage from "./pages/RootPage";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
+import GrammerChallengePage from "./pages/GrammerChallengePage";
+import PrepositionsChallengePage from "./pages/PrepositionsChallengePage";
+import NounsChallengePage from "./pages/NounsChallengePage";
 import ChallengePage, {
   loader as questionsLoader,
 } from "./pages/ChallengePage";
@@ -39,6 +42,26 @@ const router = createBrowserRouter([
       {
         path: "challenges",
         element: <ChallengePage />,
+        loader: combinedLoader,
+      },
+      {
+        path: "verbs",
+        element: <ChallengePage />,
+        loader: combinedLoader,
+      },
+      {
+        path: "grammer",
+        element: <GrammerChallengePage />,
+        loader: combinedLoader,
+      },
+      {
+        path: "nouns",
+        element: <NounsChallengePage />,
+        loader: combinedLoader,
+      },
+      {
+        path: "prepositions",
+        element: <PrepositionsChallengePage />,
         loader: combinedLoader,
       },
       {
