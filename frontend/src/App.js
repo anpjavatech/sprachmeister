@@ -5,9 +5,10 @@ import HomePage from "./pages/HomePage";
 import GrammerChallengePage from "./pages/GrammerChallengePage";
 import PrepositionsChallengePage from "./pages/PrepositionsChallengePage";
 import NounsChallengePage from "./pages/NounsChallengePage";
-import ChallengePage, {
+import ChallengePage from "./pages/ChallengePage";
+import VerbChallenge, {
   loader as questionsLoader,
-} from "./pages/ChallengePage";
+} from "./pages/VerbChallengePage";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/AuthenticationPage";
@@ -42,11 +43,11 @@ const router = createBrowserRouter([
       {
         path: "challenges",
         element: <ChallengePage />,
-        loader: combinedLoader,
+        loader: checkAuthToken,
       },
       {
         path: "verbs",
-        element: <ChallengePage />,
+        element: <VerbChallenge />,
         loader: combinedLoader,
       },
       {

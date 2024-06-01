@@ -1,13 +1,13 @@
 import PageContent from "../components/PageContent";
-import SelectFormSubmission from "../components/Select";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
-    <PageContent title="Welcome!">
-      <p>Ready for your challenges !</p>
-      <div>
-        <SelectFormSubmission />
-      </div>
+    <PageContent title="Welcome to the world of Deutsch !">
+      <h2>Ready for a challenge?</h2>
+      <Link id="cta-link" to="/challenges">
+        Get Started
+      </Link>
     </PageContent>
   );
 }

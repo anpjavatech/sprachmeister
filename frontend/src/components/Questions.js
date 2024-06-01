@@ -32,11 +32,10 @@ export default function Questions({
     setTimeout(() => {
       setAnswer({
         selectedAnswer: answer,
-        isCorrect: questions[questionIndex].answer[0] === answer,
+        isCorrect: questions[questionIndex].answer === answer,
       });
 
       setTimeout(() => {
-        console.log("inside second loop");
         onUserSelect(answer);
       }, 2000);
     }, 1000);

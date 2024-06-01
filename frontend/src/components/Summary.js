@@ -6,7 +6,7 @@ export default function Summary({ userAnswers, questions }) {
   ).length;
 
   const correctAnswers = userAnswers.filter(
-    (answer, index) => answer === questions[index].answer[0]
+    (answer, index) => answer === questions[index].answer
   ).length;
 
   const skippedPer = Math.round((skippedAnswers / userAnswers.length) * 100);
@@ -48,7 +48,7 @@ export default function Summary({ userAnswers, questions }) {
               if (answer === null) {
                 status = "skipped";
                 cssClass += " skipped";
-              } else if (answer === questions[index].answer[0]) {
+              } else if (answer === questions[index].answer) {
                 status = "correct";
                 cssClass += " correct";
               } else {
