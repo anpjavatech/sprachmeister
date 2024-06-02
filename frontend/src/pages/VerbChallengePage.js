@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import quizLogo from "../assets/quiz.png";
 import Questions from "../components/Questions";
 import Summary from "../components/Summary";
 import { useLoaderData, json, defer, Await } from "react-router-dom";
@@ -11,7 +10,6 @@ export default function VerbChallenge() {
   return (
     <>
       <header>
-        <img src={quizLogo} alt="Quiz Logo" />
         <h1>Verb Challenge</h1>
       </header>
       <div id="quiz">
