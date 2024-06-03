@@ -4,6 +4,22 @@ import SelectFormSubmission from "../components/Select.js";
 import images from "../assets/images.js";
 import PageContent from "../components/PageContent.js";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
+const listVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.5 },
+  show: { opacity: 1, scale: 1, transition: { type: "spring" } },
+};
 
 export default function ChallengePage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -16,17 +32,27 @@ export default function ChallengePage() {
       <PageContent>
         <div>
           <SelectFormSubmission />
-          <ul id="challenge-type-images">
+
+          <motion.ul
+            variants={listVariants}
+            initial="hidden"
+            animate="show"
+            id="challenge-type-images"
+          >
             {images.map((image) => (
-              <li
+              <motion.li
+                variants={itemVariants}
                 key={image.alt}
                 onClick={() => handleSelectImage(image)}
                 className={selectedImage === image ? "selected" : undefined}
               >
-                <img {...image} alt={image.alt} />
-              </li>
+                <div className="circular-image">
+                  <img {...image} alt={image.alt} />
+                  <div className="text-overlay">{image.alt}</div>
+                </div>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         </div>
       </PageContent>
     </ChallengesContextProvider>
