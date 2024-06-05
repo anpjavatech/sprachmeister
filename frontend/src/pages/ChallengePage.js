@@ -1,6 +1,5 @@
 import Header from "../components/Header.js";
 import ChallengesContextProvider from "../store/challenges-context.js";
-import SelectFormSubmission from "../components/Select.js";
 import images from "../assets/images.js";
 import PageContent from "../components/PageContent.js";
 import { useState } from "react";
@@ -31,8 +30,6 @@ export default function ChallengePage() {
       <Header />
       <PageContent>
         <div>
-          <SelectFormSubmission />
-
           <motion.ul
             variants={listVariants}
             initial="hidden"
@@ -46,9 +43,12 @@ export default function ChallengePage() {
                 onClick={() => handleSelectImage(image)}
                 className={selectedImage === image ? "selected" : undefined}
               >
-                <div className="circular-image">
-                  <img {...image} alt={image.alt} />
-                  <div className="text-overlay">{image.alt}</div>
+                <div className="image">
+                  <img className="image_img" {...image} alt={image.alt} />
+                  <div className="image_overlay">
+                    <div className="image_title">{image.alt}</div>
+                    <p className="image_description">{image.desc}</p>
+                  </div>
                 </div>
               </motion.li>
             ))}
