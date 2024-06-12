@@ -17,9 +17,9 @@ import { checkAuthToken, tokenLoader } from "./utils/auth";
 import NewQuestionPage from "./pages/NewQuestionsPage";
 import { action as submitChallengeAction } from "./components/NewChallenge";
 
-const combinedLoader = async () => {
+const combinedLoader = async (type) => {
   const authData = await checkAuthToken();
-  const questionsData = await questionsLoader();
+  const questionsData = await questionsLoader(type);
 
   return {
     ...authData,
@@ -48,27 +48,28 @@ const router = createBrowserRouter([
       {
         path: "new-challenge",
         element: <ChallengePage />,
+        loader: checkAuthToken,
         action: submitChallengeAction,
       },
       {
         path: "verb",
         element: <VerbChallenge />,
-        loader: combinedLoader,
+        loader: () => combinedLoader("verb"),
       },
       {
         path: "grammer",
         element: <GrammerChallengePage />,
-        loader: combinedLoader,
+        loader: () => combinedLoader("grammer"),
       },
       {
         path: "noun",
         element: <NounsChallengePage />,
-        loader: combinedLoader,
+        loader: () => combinedLoader("noun"),
       },
       {
         path: "preposition",
         element: <PrepositionsChallengePage />,
-        loader: combinedLoader,
+        loader: () => combinedLoader("preposition"),
       },
       {
         path: "questions",

@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import Questions from "../components/Questions";
 import Summary from "../components/Summary";
-import { useLoaderData, json, defer, Await } from "react-router-dom";
-import { getAuthToken } from "../utils/auth";
+import { useLoaderData, defer, Await } from "react-router-dom";
 import { Suspense } from "react";
+import loadQuestions from "../utils/LoadQuestions";
 
 export default function VerbChallenge() {
   const data = useLoaderData().data;
@@ -53,25 +53,8 @@ function Quiz({ randomQuestions }) {
   );
 }
 
-async function loadQuestions() {
-  const token = getAuthToken();
-  const url = "http://localhost:8000/questions?limit=10";
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
-
-  if (!response.ok) {
-    throw json({ message: "Could not fetch events." }, { status: 500 });
-  }
-  const resData = await response.json();
-  return resData.randomQuestions;
-}
-
-export function loader() {
+export function loader(type) {
   return defer({
-    randomQuestions: loadQuestions(),
+    randomQuestions: loadQuestions(type),
   });
 }
