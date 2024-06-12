@@ -2,8 +2,8 @@ import Header from "../components/Header.js";
 import ChallengesContextProvider from "../store/challenges-context.js";
 import images from "../assets/images.js";
 import PageContent from "../components/PageContent.js";
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const listVariants = {
   hidden: { opacity: 0 },
@@ -21,9 +21,10 @@ const itemVariants = {
 };
 
 export default function ChallengePage() {
-  const [selectedImage, setSelectedImage] = useState(null);
-  function handleSelectImage(image) {
-    setSelectedImage(image);
+  const navigate = useNavigate();
+
+  function handleSelectImage(id) {
+    navigate(`/${id}`);
   }
   return (
     <ChallengesContextProvider>
@@ -40,11 +41,10 @@ export default function ChallengePage() {
               <motion.li
                 variants={itemVariants}
                 key={image.alt}
-                onClick={() => handleSelectImage(image)}
-                className={selectedImage === image ? "selected" : undefined}
+                onClick={() => handleSelectImage(image.id)}
               >
                 <div className="image">
-                  <img className="image_img" {...image} alt={image.alt} />
+                  <img className="image_img" src={image.src} alt={image.alt} />
                   <div className="image_overlay">
                     <div className="image_title">{image.alt}</div>
                     <p className="image_description">{image.desc}</p>
@@ -58,11 +58,3 @@ export default function ChallengePage() {
     </ChallengesContextProvider>
   );
 }
-
-/* <PageContent title="Deutsch Sprachen Challenge!">
-  <img src={quizLogo} alt="Quiz Logo" />
-  <p>Ready for your challenges !</p>
-  <div>
-    <SelectFormSubmission />
-  </div>
-</PageContent>; */

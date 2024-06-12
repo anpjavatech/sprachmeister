@@ -20,3 +20,17 @@
 .list a.active {
   color: var(--color-primary-800);
 }
+
+button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background-color: #0f61ef;
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #0f3cef;
+}

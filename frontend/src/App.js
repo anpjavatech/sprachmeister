@@ -15,7 +15,7 @@ import AuthenticationPage, {
 import { action as logoutAction } from "./pages/Logout";
 import { checkAuthToken, tokenLoader } from "./utils/auth";
 import NewQuestionPage from "./pages/NewQuestionsPage";
-import { action as addNewQuestionAction } from "./components/QuestionsForm";
+import { action as submitChallengeAction } from "./components/NewChallenge";
 
 const combinedLoader = async () => {
   const authData = await checkAuthToken();
@@ -46,7 +46,12 @@ const router = createBrowserRouter([
         loader: checkAuthToken,
       },
       {
-        path: "verbs",
+        path: "new-challenge",
+        element: <ChallengePage />,
+        action: submitChallengeAction,
+      },
+      {
+        path: "verb",
         element: <VerbChallenge />,
         loader: combinedLoader,
       },
@@ -56,19 +61,18 @@ const router = createBrowserRouter([
         loader: combinedLoader,
       },
       {
-        path: "nouns",
+        path: "noun",
         element: <NounsChallengePage />,
         loader: combinedLoader,
       },
       {
-        path: "prepositions",
+        path: "preposition",
         element: <PrepositionsChallengePage />,
         loader: combinedLoader,
       },
       {
         path: "questions",
         element: <NewQuestionPage />,
-        action: addNewQuestionAction,
         loader: checkAuthToken,
       },
       {

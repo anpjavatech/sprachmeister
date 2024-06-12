@@ -1,5 +1,5 @@
 import { Form, NavLink, useRouteLoaderData } from "react-router-dom";
-
+import { motion } from "framer-motion";
 import classes from "./MainNavigation.module.css";
 
 function MainNavigation() {
@@ -22,32 +22,6 @@ function MainNavigation() {
               </NavLink>
             </li>
           )}
-          {token && (
-            <li>
-              <NavLink
-                to="/challenges"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-                end
-              >
-                MentalGym
-              </NavLink>
-            </li>
-          )}
-          {token && (
-            <li>
-              <NavLink
-                to="/questions"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-                end
-              >
-                Questions
-              </NavLink>
-            </li>
-          )}
           {!token && (
             <li>
               <NavLink
@@ -63,7 +37,12 @@ function MainNavigation() {
           {token && (
             <li>
               <Form action="/logout" method="post">
-                <button>logout</button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 500 }}
+                >
+                  logout
+                </motion.button>
               </Form>
             </li>
           )}
