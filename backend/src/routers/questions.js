@@ -16,16 +16,23 @@ router.post("/questions", auth, async (req, res) => {
 
 router.get("/questions", auth, async (req, res) => {
   try {
-    const randomQuestions = await getRandomUsers(Number(req.query.limit || 10));
+    const type = req.query.type;
+    const randomQuestions = await getRandomUsers(
+      Number(req.query.limit || 10),
+      type
+    );
     res.send({ randomQuestions });
   } catch (error) {
     res.status(400).send({ error: err.message });
   }
 });
 
-const getRandomUsers = async (num) => {
+const getRandomUsers = async (num, questionType) => {
   try {
-    const randomQues = await Questions.aggregate([{ $sample: { size: num } }]);
+    const randomQues = await Questions.aggregate([
+      { $match: { type: questionType } },
+      { $sample: { size: num } },
+    ]);
     return randomQues;
   } catch (error) {
     console.error("Error retrieving random users:", error);
